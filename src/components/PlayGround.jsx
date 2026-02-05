@@ -5,8 +5,8 @@ export default function PlayGround() {
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 1, 0, 0, 0, 0],
-    [0, 0, 0, 0, 1, 1, 1, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -26,12 +26,12 @@ export default function PlayGround() {
     return (
         <>
             <div className="w-90 h-180 border grid grid-cols-10 m-2">
-                {initialBoard.map(row => 
-                    row.map(cell => 
-                        cell > 0 ? <div  className="w-8 h-8 bg-amber-600"></div> :
-                            <div  className="w-8 h-8 bg-white"></div>
-                    )
-                )}
+                {initialBoard.map((row, rowIndex) => 
+                    row.map((cell, cellIndex) => 
+                        cell > 0 ? <div key={`${rowIndex}-${cellIndex}`} className="w-8 h-8 bg-amber-600"></div> :
+                            <div key={`${rowIndex}-${cellIndex}`} className="w-8 h-8 bg-white"></div>
+                )
+)}
             </div>
         </>
     )

@@ -1,5 +1,4 @@
 import './App.css'
-import Block from './components/Block'
 import PlayGround from './components/PlayGround'
 
 export default function App() {

@@ -1,4 +1,4 @@
-    const board = 
+    export const board = 
     [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -24,7 +24,10 @@
 // this function checks if a piece at give coordinate is valid or not
 // x is x-axis, y is y-axis
 // all coordiates are in 4 quadrant
-function checkCollision(board, piece, loc_x, loc_y){
+export const checkCollision = (board, piece, loc_x, loc_y) => {
+    const x_length = piece[0].length;
+    const y_length = piece.length;
+
     if(loc_x < 0){ // left boundry check
         return false;
     }
@@ -37,8 +40,9 @@ function checkCollision(board, piece, loc_x, loc_y){
         return false;
     }
 
-    const x_length = piece[0].length;
-    const y_length = piece.length;
+    if(loc_y < 0){ // top boundry check
+        return false;
+    }
 
     for(let i = 0;i<y_length;i++){
         for(let j = 0; j<x_length;j++){
@@ -52,7 +56,7 @@ function checkCollision(board, piece, loc_x, loc_y){
     return true;
 }
 
-const rotate90 = (grid) => {
+export const rotate90 = (grid) => {
     const x = grid.length; // 4
     const y = grid[0].length; // 2
     
@@ -71,7 +75,7 @@ const rotate90 = (grid) => {
     return newGrid;
 }
 
-const rotate180= (grid) => {
+export const rotate180= (grid) => {
     const x = grid.length;
     let gridCopy = grid;
     let newGrid = [];
@@ -82,7 +86,7 @@ const rotate180= (grid) => {
     return newGrid;
 }
 
-const rotate270= (grid) => {
+export const rotate270= (grid) => {
     const x = grid.length;
     const y = grid[0].length;
     
@@ -104,27 +108,28 @@ function print(arr){
     }
 }
 
-const I = [[1], [1], [1], [1]]
+export const I = [[1], [1], [1], [1]]
 
-const L =  [[1, 0],
+export const L =  [[1, 0],
             [1, 0],
             [1, 0],
             [1, 1]]
             
-const S =  [[0, 1, 1],
+export const S =  [[0, 1, 1],
             [1, 1, 0]]
             
-const T =  [[1, 1, 1],
+export const T =  [[1, 1, 1],
             [0, 1, 0]]
 
-const O =  [[1, 1],
+export const O =  [[1, 1],
             [1, 1]]
             
-const Z =  [[1, 1, 0],
+export const Z =  [[1, 1, 0],
             [0, 1, 1]]
 
-const J =  [[0, 1],
+export const J =  [[0, 1],
             [0, 1],
             [0, 1],
             [1, 1]]
                           
+export default  {};

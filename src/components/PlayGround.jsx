@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { checkCollision, L } from './block.js'
 
 export default function PlayGround() {
@@ -57,6 +57,16 @@ export default function PlayGround() {
     const [board, setBoard] = useState(initialBoard);
 
     const [piece, setPiece] = useState(initialPiece);
+
+    useEffect( ()=> {
+        const intervalId = setInterval(()=> {
+            if(checkCollision(board, piece.grid, piece.x_pos, (piece.y_pos + 1))){
+                setPiece(prev => ({...prev, y_pos : (prev.y_pos + 1)}));
+            }
+        }, 1000);
+
+        return () => clearInterval(intervalId);
+    }, [piece])
 
     const handleKeyPress = (e) => {
         // console.log(e.key);

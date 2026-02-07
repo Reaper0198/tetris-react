@@ -1,9 +1,7 @@
-import { useEffect, useState } from "react"
-import { checkCollision, L, I, S, O, T, Z, J } from './block.js'
+import { useEffect, useRef, useState } from "react"
+import { checkCollision, L, I, S, O, T, Z, J, rotate90} from './block.js'
 
 export default function PlayGround() {
-
-
 
     const initialPiece = {
         grid: L,
@@ -33,52 +31,66 @@ export default function PlayGround() {
         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]]
 
-    //     [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    // [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    // [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    // [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    // [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    // [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    // [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    // [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    // [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    // [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    // [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    // [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    // [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    // [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    // [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    // [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    // [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    // [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    // [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    // [1, 1, 1, 1, 1, 1, 1, 1, 1, 1]]
+        // [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        // [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        // [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        // [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        // [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        // [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        // [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        // [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        // [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        // [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        // [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        // [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        // [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        // [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        // [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        // [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        // [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        // [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        // [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        // [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]]
+
 
     const [board, setBoard] = useState(initialBoard);
-
+    const boardRef = useRef(board);
+    useEffect(() => {
+        board.current = board;
+    }, [board])
+    
     const [piece, setPiece] = useState(initialPiece);
+    const pieceRef = useRef(piece);
+    useEffect(() => {
+        pieceRef.current = piece;
+    }, [piece])
 
     // gravity and game loop
     useEffect( ()=> {
         const intervalId = setInterval(()=> {
-            if(checkCollision(board, piece.grid, piece.x_pos, (piece.y_pos + 1))){
+
+            const curBoard = boardRef.current;
+            const curPiece = pieceRef.current;
+
+            if(checkCollision(curBoard, curPiece.grid, curPiece.x_pos, (curPiece.y_pos + 1))){
                 setPiece(prev => ({...prev, y_pos : (prev.y_pos + 1)}));
             }
-            // else{
-            //     lockPieceInBoard(board, piece);
-            //     generateNewPiece();
-            //     if(checkGameOver()){
-            //         console.log("--------GAME OVER---------")
-            //         clearInterval(intervalId);
-            //     }
-            // }
+            else{
+                lockPieceInBoard(curBoard, curPiece);
+                if(checkGameOver()){
+                    console.log("--------GAME OVER---------")
+                    clearInterval(intervalId);
+                }else{
+                    generateNewPiece();
+                }
+            }
         }, 1000);
 
         return () => clearInterval(intervalId);
     }, [])
 
     const handleKeyPress = (e) => {
-        // console.log(e.key);
+        console.log(e.key);
         if (e.key === 'd') {
             if (checkCollision(board, piece.grid, (piece.x_pos + 1), (piece.y_pos))) {
                 setPiece(prev => ({ ...prev, x_pos: (prev.x_pos + 1) }))
@@ -94,6 +106,10 @@ export default function PlayGround() {
         } else if (e.key === 'w') {
             if (checkCollision(board, piece.grid, (piece.x_pos), (piece.y_pos - 1))) {
                 setPiece(prev => ({ ...prev, y_pos: (prev.y_pos - 1) }))
+            }
+        }else if(e.key === ' '){
+            if(checkCollision(board, rotate90(piece.grid), piece.x_pos, piece.y_pos)){
+                setPiece(prev => ({...prev, grid : (rotate90(prev.grid))}))
             }
         }
     }
@@ -159,7 +175,7 @@ export default function PlayGround() {
         }else if(num == 6){
             setPiece({...newPiece, grid : Z});
         }
-        console.log("newPiece", piece);
+        // console.log("newPiece", piece);
     }
 
     const checkGameOver = () => {

@@ -54,12 +54,14 @@ export default function PlayGround() {
 
 
     const [board, setBoard] = useState(initialBoard);
+    // used useRef hook to get latest value of board in setInterval
     const boardRef = useRef(board);
     useEffect(() => {
         board.current = board;
     }, [board])
     
     const [piece, setPiece] = useState(initialPiece);
+    // used useRef hook to get latest value of piece in setInterval
     const pieceRef = useRef(piece);
     useEffect(() => {
         pieceRef.current = piece;
@@ -89,6 +91,7 @@ export default function PlayGround() {
         return () => clearInterval(intervalId);
     }, [])
 
+    // to handle user input on keyboard
     const handleKeyPress = (e) => {
         console.log(e.key);
         if (e.key === 'd') {
@@ -114,7 +117,8 @@ export default function PlayGround() {
         }
     }
 
-    const generateFinalBoardArray = (board, piece) => {
+    // generate final board to render
+    const generateFinalBoardArray = (piece , board) => {
         const finalBoard = board.map(row => [...row]);
 
         piece.grid.map((row, y) => {
@@ -132,9 +136,10 @@ export default function PlayGround() {
             })
         })
         return finalBoard;
-    }
+    }   
 
-    const lockPieceInBoard = (board, piece) => {
+    // add the piece into board array once it is placed
+    const lockPieceInBoard = (piece , board) => {
 
         const finalBoard = board;
 
@@ -152,6 +157,7 @@ export default function PlayGround() {
         setBoard(finalBoard);
     }
 
+    // generates new piece after prev is fixed into board
     const generateNewPiece = () => {
         const num = Math.floor(Math.random() * 7);
         console.log(num)
@@ -178,6 +184,7 @@ export default function PlayGround() {
         // console.log("newPiece", piece);
     }
 
+    // checks game over if the fixed pieces reached top row
     const checkGameOver = () => {
         if(checkCollision(board, piece.grid, piece.x_pos, piece.y_pos)){
             return false;
@@ -191,7 +198,7 @@ export default function PlayGround() {
     return (
         <>
             <div className="w-90 h-180 border grid grid-cols-10 m-2 p-2"
-                onKeyDown={handleKeyPress} tabIndex={2}
+                onKeyDown={handleKeyPress} tabIndex={1}
             >
                 {
                     finalBoard.map((row, rowIndex) => {

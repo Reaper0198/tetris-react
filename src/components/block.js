@@ -109,7 +109,10 @@ function print(arr){
     }
 }
 
-export const I = [[1], [1], [1], [1]]
+export const I = [[1],
+                  [1],
+                  [1],
+                  [1]]
 
 export const L =  [[1, 0],
             [1, 0],

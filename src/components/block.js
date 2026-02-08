@@ -76,31 +76,31 @@ export const rotate90 = (grid) => {
     return newGrid;
 }
 
-export const rotate180= (grid) => {
-    const x = grid.length;
-    let gridCopy = grid;
-    let newGrid = [];
-    for(let i = x-1;i>=0;i--){
-        gridCopy[i].reverse();
-        newGrid.push(gridCopy[i]);
-    }
-    return newGrid;
-}
+// export const rotate180= (grid) => {
+//     const x = grid.length;
+//     let gridCopy = grid;
+//     let newGrid = [];
+//     for(let i = x-1;i>=0;i--){
+//         gridCopy[i].reverse();
+//         newGrid.push(gridCopy[i]);
+//     }
+//     return newGrid;
+// }
 
-export const rotate270= (grid) => {
-    const x = grid.length;
-    const y = grid[0].length;
+// export const rotate270= (grid) => {
+//     const x = grid.length;
+//     const y = grid[0].length;
     
-    newGrid = [];
-    for(let i = 0;i<y;i++){
-        let row = [];
-        for(let j = 0;j<x;j++){
-            row.push(grid[j][i]);
-        }
-        newGrid.push(row);
-    }
-    return newGrid;
-}
+//     newGrid = [];
+//     for(let i = 0;i<y;i++){
+//         let row = [];
+//         for(let j = 0;j<x;j++){
+//             row.push(grid[j][i]);
+//         }
+//         newGrid.push(row);
+//     }
+//     return newGrid;
+// }
 
 
 function print(arr){

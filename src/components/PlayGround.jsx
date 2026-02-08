@@ -204,9 +204,9 @@ export default function PlayGround() {
                     finalBoard.map((row, rowIndex) => {
                         return (row.map((cell, cellIndex) => {
                             if (cell == 1) {
-                                return (<div key={`${rowIndex}-${cellIndex}`} className="w-8 h-8 border bg-gray-700"></div>)
+                                return (<div key={`${rowIndex}-${cellIndex}`} className="w-8 h-8 border bg-gray-800"></div>)
                             } else if (cell == 2) {
-                                return (<div key={`${rowIndex}-${cellIndex}`} className="w-8 h-8 border bg-amber-600"></div>)
+                                return (<div key={`${rowIndex}-${cellIndex}`} className="w-8 h-8 border bg-purple-600"></div>)
                             } else if (cell == 0) {
                                 return (<div key={`${rowIndex}-${cellIndex}`} className="w-8 h-8 border bg-gray-500"></div>)
                             }

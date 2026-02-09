@@ -118,7 +118,7 @@ export default function PlayGround() {
     }
 
     // generate final board to render
-    const generateFinalBoardArray = (piece , board) => {
+    const generateFinalBoardArray = (board, piece) => {
         const finalBoard = board.map(row => [...row]);
 
         piece.grid.map((row, y) => {
@@ -139,7 +139,7 @@ export default function PlayGround() {
     }   
 
     // add the piece into board array once it is placed
-    const lockPieceInBoard = (piece , board) => {
+    const lockPieceInBoard = (board, piece) => {
 
         const finalBoard = board;
 

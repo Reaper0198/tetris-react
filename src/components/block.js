@@ -1,4 +1,4 @@
-    export const board = 
+export const board =
     [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -28,27 +28,27 @@ export const checkCollision = (board, piece, loc_x, loc_y) => {
     const x_length = piece[0].length;
     const y_length = piece.length;
 
-    if(loc_x < 0){ // left boundry check
+    if (loc_x < 0) { // left boundry check
         return false;
     }
 
-    if(loc_x > (10-x_length)){// right boundry check
+    if (loc_x > (10 - x_length)) {// right boundry check
         return false;
     }
     console.log("before loc_y check")
-    if(loc_y > (20-y_length)){ // botton boundry check
+    if (loc_y > (20 - y_length)) { // botton boundry check
         console.log("inside loc_y check")
         return false;
     }
 
-    if(loc_y < 0){ // top boundry check
+    if (loc_y < 0) { // top boundry check
         return false;
     }
 
-    for(let i = 0;i<y_length;i++){
-        for(let j = 0; j<x_length;j++){
-            if(piece[i][j] == 1){
-                if(board[loc_y+i][loc_x + j]=== 1){
+    for (let i = 0; i < y_length; i++) {
+        for (let j = 0; j < x_length; j++) {
+            if (piece[i][j] == 1) {
+                if (board[loc_y + i][loc_x + j] === 1) {
                     return false;
                 }
             }
@@ -60,19 +60,19 @@ export const checkCollision = (board, piece, loc_x, loc_y) => {
 export const rotate90 = (grid) => {
     const x = grid.length; // 4
     const y = grid[0].length; // 2
-    
+
     let newGrid = [];
-    
-    for(let i = 0;i < y;i++){
+
+    for (let i = 0; i < y; i++) {
         let row = []
-        for(let j = x-1;j>= 0;j--){
+        for (let j = x - 1; j >= 0; j--) {
             // console.log(this.grid[j][i]);
             row.push(grid[j][i]);
         }
         // console.log(row);
         newGrid.push(row);
     }
-    
+
     return newGrid;
 }
 
@@ -90,7 +90,7 @@ export const rotate90 = (grid) => {
 // export const rotate270= (grid) => {
 //     const x = grid.length;
 //     const y = grid[0].length;
-    
+
 //     newGrid = [];
 //     for(let i = 0;i<y;i++){
 //         let row = [];
@@ -103,37 +103,35 @@ export const rotate90 = (grid) => {
 // }
 
 
-function print(arr){
-    for(let i = 0;i<arr.length;i++){
+function print(arr) {
+    for (let i = 0; i < arr.length; i++) {
         console.log(arr[i]);
     }
 }
 
 export const I = [[1],
-                  [1],
-                  [1],
-                  [1]]
+[1],
+[1],
+[1]]
 
-export const L =  [[1, 0],
-            [1, 0],
-            [1, 0],
-            [1, 1]]
-            
-export const S =  [[0, 1, 1],
-            [1, 1, 0]]
-            
-export const T =  [[1, 1, 1],
-            [0, 1, 0]]
+export const L = [[1, 0],
+[1, 0],
+[1, 1]]
 
-export const O =  [[1, 1],
-            [1, 1]]
-            
-export const Z =  [[1, 1, 0],
-            [0, 1, 1]]
+export const S = [[0, 1, 1],
+[1, 1, 0]]
 
-export const J =  [[0, 1],
-            [0, 1],
-            [0, 1],
-            [1, 1]]
-                          
-export default  {};
+export const T = [[1, 1, 1],
+[0, 1, 0]]
+
+export const O = [[1, 1],
+[1, 1]]
+
+export const Z = [[1, 1, 0],
+[0, 1, 1]]
+
+export const J = [[0, 1],
+[0, 1],
+[1, 1]]
+
+export default {};

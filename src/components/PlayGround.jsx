@@ -79,6 +79,8 @@ export default function PlayGround() {
             }
             else{
                 lockPieceInBoard(curBoard, curPiece);
+                console.log(curBoard);
+                checkLineClear(board);
                 generateNewPiece();
                 if(checkGameOver()){
                     console.log("--------GAME OVER---------")
@@ -92,7 +94,7 @@ export default function PlayGround() {
 
     // to handle user input on keyboard
     const handleKeyPress = (e) => {
-        console.log(e.key);
+        // console.log(e.key);
         if (e.key === 'd') {
             if (checkCollision(board, piece.grid, (piece.x_pos + 1), (piece.y_pos))) {
                 setPiece(prev => ({ ...prev, x_pos: (prev.x_pos + 1) }))
@@ -190,6 +192,22 @@ export default function PlayGround() {
         }else{
             return true;
         }
+    }
+
+    const checkLineClear = (board) => {
+        board.map((row, y) => {
+            const sum = row.reduce((tot, x) => (tot + x), 0);
+            if(sum === 10){
+                setBoard(prev => {
+                    const boardCopy = prev;
+                    boardCopy.splice(y, 1);
+                    return boardCopy;});
+                setBoard(prev => {
+                    const boardCopy = prev;
+                    boardCopy.unshift([0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
+                    return boardCopy;});
+            }
+        })
     }
 
     const finalBoard = generateFinalBoardArray(board, piece);

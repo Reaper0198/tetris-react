@@ -109,14 +109,10 @@ function print(arr) {
     }
 }
 
-export const I = [[1],
-[1],
-[1],
-[1]]
+export const I = [[1, 1, 1, 1]]
 
-export const L = [[1, 0],
-[1, 0],
-[1, 1]]
+export const L = [[0, 0, 1],
+[1, 1, 1]]
 
 export const S = [[0, 1, 1],
 [1, 1, 0]]
@@ -130,8 +126,7 @@ export const O = [[1, 1],
 export const Z = [[1, 1, 0],
 [0, 1, 1]]
 
-export const J = [[0, 1],
-[0, 1],
-[1, 1]]
+export const J = [[1, 0, 0],
+[1, 1, 1]]
 
 export default {};

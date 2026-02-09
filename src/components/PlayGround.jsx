@@ -79,11 +79,10 @@ export default function PlayGround() {
             }
             else{
                 lockPieceInBoard(curBoard, curPiece);
+                generateNewPiece();
                 if(checkGameOver()){
                     console.log("--------GAME OVER---------")
                     clearInterval(intervalId);
-                }else{
-                    generateNewPiece();
                 }
             }
         }, 1000);

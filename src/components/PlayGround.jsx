@@ -190,6 +190,7 @@ export default function PlayGround() {
         }
     }
 
+    //checks if board contain any fully filled rows and clears them
     const checkLineClear = (board) => {
 
         const remainingRows = board.filter(row => row.reduce((tot, x) => tot+x, 0) !== 10);
@@ -227,7 +228,6 @@ export default function PlayGround() {
         })
         return finalBoard;
     }  
-
     const finalBoard = generateFinalBoardArray(board, piece);
 
     return (

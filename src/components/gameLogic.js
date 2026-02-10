@@ -1,3 +1,40 @@
+// this function checks if a piece at give coordinate is valid or not
+// all coordiates are in 4th quadrant
+export const checkCollision = (board, piece, loc_x, loc_y) => {
+    const x_length = piece[0].length;
+    const y_length = piece.length;
+
+    if (loc_x < 0) { // left boundry check
+        return false;
+    }
+
+    if (loc_x > (10 - x_length)) {// right boundry check
+        return false;
+    }
+    // console.log("before loc_y check")
+    if (loc_y > (20 - y_length)) { // botton boundry check
+        console.log("inside loc_y check")
+        return false;
+    }
+
+    if (loc_y < 0) { // top boundry check
+        return false;
+    }
+
+    for (let i = 0; i < y_length; i++) {
+        for (let j = 0; j < x_length; j++) {
+            if (piece[i][j] == 1) {
+                if (board[loc_y + i][loc_x + j] === 1) {
+                    console.log("y ", (loc_y + i))
+                    console.log("x ", (loc_x + j))
+                    return false;
+                }
+            }
+        }
+    }
+    return true;
+}
+
 // add the piece into board array once it is placed
 export const lockPieceInBoard = (board, piece) => {
 
@@ -81,39 +118,23 @@ export const checkLineClear = (board) => {
     return newBoard;
 }
 
-// this function checks if a piece at give coordinate is valid or not
-// all coordiates are in 4th quadrant
-export const checkCollision = (board, piece, loc_x, loc_y) => {
-    const x_length = piece[0].length;
-    const y_length = piece.length;
+// generate final board to render
+export const generateFinalBoardArray = (board, piece) => {
+    const finalBoard = board.map(row => [...row]);
 
-    if (loc_x < 0) { // left boundry check
-        return false;
-    }
+    piece.grid.map((row, y) => {
+        row.map((cell, x) => {
+            if (cell === 1) {
 
-    if (loc_x > (10 - x_length)) {// right boundry check
-        return false;
-    }
-    // console.log("before loc_y check")
-    if (loc_y > (20 - y_length)) { // botton boundry check
-        console.log("inside loc_y check")
-        return false;
-    }
+                const piece_x = piece.x_pos + x;
+                const piece_y = piece.y_pos + y;
 
-    if (loc_y < 0) { // top boundry check
-        return false;
-    }
-
-    for (let i = 0; i < y_length; i++) {
-        for (let j = 0; j < x_length; j++) {
-            if (piece[i][j] == 1) {
-                if (board[loc_y + i][loc_x + j] === 1) {
-                    console.log("y ", (loc_y + i))
-                    console.log("x ", (loc_x + j))
-                    return false;
+                if (piece_x >= 0 && piece_x < board[0].length &&
+                    piece_y >= 0 && piece_y < board.length) {
+                    finalBoard[piece_y][piece_x] = 2;
                 }
             }
-        }
-    }
-    return true;
-}
+        })
+    })
+    return finalBoard;
+}  

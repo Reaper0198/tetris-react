@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react"
 import { initialBoard, initialPiece, L, I, S, O, T, Z, J, rotate90} from './block.js'
-import { checkCollision, checkGameOver, checkLineClear, generateNewPiece, lockPieceInBoard } from "./gameLogic.js";
+import { checkCollision, checkGameOver, checkLineClear, generateNewPiece, lockPieceInBoard, generateFinalBoardArray } from "./gameLogic.js";
 
 export default function PlayGround() {
 
@@ -76,28 +76,6 @@ export default function PlayGround() {
         }
     }
 
-
-
-    // generate final board to render
-    const generateFinalBoardArray = (board, piece) => {
-        const finalBoard = board.map(row => [...row]);
-
-        piece.grid.map((row, y) => {
-            row.map((cell, x) => {
-                if (cell === 1) {
-
-                    const piece_x = piece.x_pos + x;
-                    const piece_y = piece.y_pos + y;
-
-                    if (piece_x >= 0 && piece_x < board[0].length &&
-                        piece_y >= 0 && piece_y < board.length) {
-                        finalBoard[piece_y][piece_x] = 2;
-                    }
-                }
-            })
-        })
-        return finalBoard;
-    }  
     const finalBoard = generateFinalBoardArray(board, piece);
 
     return (

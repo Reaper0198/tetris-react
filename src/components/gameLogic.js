@@ -1,3 +1,5 @@
+import { L, I, S, Z, T, O, J} from "./block.js"
+
 // this function checks if a piece at give coordinate is valid or not
 // all coordiates are in 4th quadrant
 export const checkCollision = (board, piece, loc_x, loc_y) => {
@@ -13,7 +15,7 @@ export const checkCollision = (board, piece, loc_x, loc_y) => {
     }
     // console.log("before loc_y check")
     if (loc_y > (20 - y_length)) { // botton boundry check
-        console.log("inside loc_y check")
+        // console.log("inside loc_y check")
         return false;
     }
 
@@ -25,8 +27,8 @@ export const checkCollision = (board, piece, loc_x, loc_y) => {
         for (let j = 0; j < x_length; j++) {
             if (piece[i][j] == 1) {
                 if (board[loc_y + i][loc_x + j] === 1) {
-                    console.log("y ", (loc_y + i))
-                    console.log("x ", (loc_x + j))
+                    // console.log("y ", (loc_y + i))
+                    // console.log("x ", (loc_x + j))
                     return false;
                 }
             }
@@ -87,7 +89,6 @@ export const generateNewPiece = () => {
         newPiece = {...newPiece, grid : Z};
     }
     // console.log("newPiece", piece);
-    setPiece(newPiece);
     return newPiece;
 }
 
@@ -114,16 +115,16 @@ export const checkLineClear = (board) => {
     }
 
     const newBoard =  [...emptyRows, ...remainingRows];
-    setBoard(newBoard);
     return newBoard;
 }
 
 // generate final board to render
 export const generateFinalBoardArray = (board, piece) => {
     const finalBoard = board.map(row => [...row]);
+    // console.log(piece);
 
-    piece.grid.map((row, y) => {
-        row.map((cell, x) => {
+    piece.grid.forEach((row, y) => {
+        row.forEach((cell, x) => {
             if (cell === 1) {
 
                 const piece_x = piece.x_pos + x;

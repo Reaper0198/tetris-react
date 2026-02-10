@@ -37,8 +37,10 @@ export default function PlayGround() {
             else{
                 let updatedBoard = lockPieceInBoard(curBoard, curPiece);
                 boardRef.current = checkLineClear(updatedBoard);
+                setBoard(boardRef.current);
 
                 pieceRef.current = generateNewPiece();
+                setPiece(pieceRef.current);
 
                 if(checkGameOver(boardRef.current, pieceRef.current)){
                     console.log("--------GAME OVER---------")
@@ -54,24 +56,32 @@ export default function PlayGround() {
     const handleKeyPress = (e) => {
         // console.log(e.key);
         if (e.key === 'd') {
+            // move right
             if (checkCollision(board, piece.grid, (piece.x_pos + 1), (piece.y_pos))) {
                 setPiece(prev => ({ ...prev, x_pos: (prev.x_pos + 1) }))
             }
         } else if (e.key === 'a') {
+            //move left
             if (checkCollision(board, piece.grid, (piece.x_pos - 1), (piece.y_pos))) {
                 setPiece(prev => ({ ...prev, x_pos: (prev.x_pos - 1) }))
             }
         } else if (e.key === 's') {
+            // move down
             if (checkCollision(board, piece.grid, (piece.x_pos), (piece.y_pos + 1))) {
                 setPiece(prev => ({ ...prev, y_pos: (prev.y_pos + 1) }))
             }
         } else if (e.key === 'w') {
+            // move up
             if (checkCollision(board, piece.grid, (piece.x_pos), (piece.y_pos - 1))) {
                 setPiece(prev => ({ ...prev, y_pos: (prev.y_pos - 1) }))
             }
         }else if(e.key === ' '){
+            // rotate piece 
+            // wall kicks if rotated piece off by 1 unit on either side
             if(checkCollision(board, rotate90(piece.grid), piece.x_pos, piece.y_pos)){
                 setPiece(prev => ({...prev, grid : (rotate90(prev.grid))}))
+            }else if(checkCollision(board, rotate90(piece.grid), (piece.x_pos-1), piece.y_pos)){
+                setPiece(prev => ({...prev, grid : (rotate90(prev.grid)), x_pos : (prev.x_pos-1)}))
             }
         }
     }

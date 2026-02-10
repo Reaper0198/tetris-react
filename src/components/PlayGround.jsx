@@ -1,57 +1,8 @@
 import { useEffect, useRef, useState } from "react"
-import { checkCollision, L, I, S, O, T, Z, J, rotate90} from './block.js'
+import { initialBoard, initialPiece, L, I, S, O, T, Z, J, rotate90} from './block.js'
+import { checkCollision, checkGameOver, checkLineClear, generateNewPiece, lockPieceInBoard } from "./gameLogic.js";
 
 export default function PlayGround() {
-
-    const initialPiece = {
-        grid: L,
-        x_pos: 4,
-        y_pos: 0
-    }
-
-    const initialBoard =
-        [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]]
-
-        // [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        // [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        // [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        // [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        // [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        // [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        // [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        // [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        // [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        // [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        // [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        // [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        // [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        // [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        // [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        // [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        // [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        // [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        // [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        // [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]]
-
 
     const [board, setBoard] = useState(initialBoard);
     // used useRef hook to get latest value of board in setInterval
@@ -125,88 +76,7 @@ export default function PlayGround() {
         }
     }
 
-    // add the piece into board array once it is placed
-    const lockPieceInBoard = (board, piece) => {
 
-        const finalBoard = [];
-        board.forEach(row => {
-            const rowCopy = [];
-            row.forEach(cell => {
-                rowCopy.push(cell);
-            })
-            finalBoard.push(rowCopy);
-        })
-
-        piece.grid.forEach((row, y) => {
-            row.forEach((cell, x) => {
-                const piece_x = piece.x_pos + x;
-                const piece_y = piece.y_pos + y;
-
-                if(cell == 1){
-                    if(piece_x >= 0 && piece_x < 10 && piece_y >= 0 && piece_y < 20){
-                        finalBoard[piece_y][piece_x] = 1;
-                    }
-                }
-            })
-        })
-        return finalBoard;
-    }
-
-    // generates new piece after prev is fixed into board
-    const generateNewPiece = () => {
-        const num = Math.floor(Math.random() * 7);
-        // console.log(num)
-        let newPiece = {
-            x_pos : 4,
-            y_pos : 0
-        }
-
-        if(num == 0){ // L, I, S, O, T, Z, J
-            newPiece = {...newPiece, grid : I};
-        }else if(num == 1){
-            newPiece = {...newPiece, grid : L};
-        }else if(num == 2){
-            newPiece = {...newPiece, grid : J};
-        }else if(num == 3){
-            newPiece = {...newPiece, grid : O};
-        }else if(num == 4){
-            newPiece = {...newPiece, grid : S};
-        }else if(num == 5){
-            newPiece = {...newPiece, grid : T};
-        }else if(num == 6){
-            newPiece = {...newPiece, grid : Z};
-        }
-        // console.log("newPiece", piece);
-        setPiece(newPiece);
-        return newPiece;
-    }
-
-    // checks game over if the fixed pieces reached top row
-    const checkGameOver = (board, piece) => {
-        if(checkCollision(board, piece.grid, piece.x_pos, piece.y_pos)){
-            return false;
-        }else{
-            return true;
-        }
-    }
-
-    //checks if board contain any fully filled rows and clears them
-    const checkLineClear = (board) => {
-
-        const remainingRows = board.filter(row => row.reduce((tot, x) => tot+x, 0) !== 10);
-
-        const removedRows = 20 - remainingRows.length;
-
-        const emptyRows = [];
-
-        for(let i = 0;i<removedRows;i++){
-            emptyRows.push([0, 0, 0, 0, 0, 0, 0, 0, 0, 0,]);
-        }
-
-        const newBoard =  [...emptyRows, ...remainingRows];
-        setBoard(newBoard);
-        return newBoard;
-    }
 
     // generate final board to render
     const generateFinalBoardArray = (board, piece) => {

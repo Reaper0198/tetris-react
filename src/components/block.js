@@ -37,7 +37,7 @@ export const checkCollision = (board, piece, loc_x, loc_y) => {
     }
     // console.log("before loc_y check")
     if (loc_y > (20 - y_length)) { // botton boundry check
-        // console.log("inside loc_y check")
+        console.log("inside loc_y check")
         return false;
     }
 
@@ -49,6 +49,8 @@ export const checkCollision = (board, piece, loc_x, loc_y) => {
         for (let j = 0; j < x_length; j++) {
             if (piece[i][j] == 1) {
                 if (board[loc_y + i][loc_x + j] === 1) {
+                    console.log("y ", (loc_y + i))
+                    console.log("x ", (loc_x + j))
                     return false;
                 }
             }

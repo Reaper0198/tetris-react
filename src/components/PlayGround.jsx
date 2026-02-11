@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react"
 import { initialBoard, initialPiece, L, I, S, O, T, Z, J, rotate90} from './block.js'
-import { checkCollision, checkGameOver, checkLineClear, generateNewPiece, lockPieceInBoard, generateFinalBoardArray } from "./gameLogic.js";
+import { checkCollision, checkGameOver, checkLineClear, generateNewPiece, lockPieceInBoard, generateFinalBoardArray, getGhost_y } from "./gameLogic.js";
 
 export default function PlayGround({ level, increaseScoreBy }) {
 
@@ -80,7 +80,7 @@ export default function PlayGround({ level, increaseScoreBy }) {
 
     // to handle user input on keyboard
     const handleKeyPress = (e) => {
-        // console.log(e.key);
+        console.log(e.key);
         if (e.key === 'd') {
             // move right
             if (checkCollision(board, piece.grid, (piece.x_pos + 1), (piece.y_pos))) {
@@ -109,6 +109,9 @@ export default function PlayGround({ level, increaseScoreBy }) {
             }else if(checkCollision(board, rotate90(piece.grid), (piece.x_pos-1), piece.y_pos)){
                 setPiece(prev => ({...prev, grid : (rotate90(prev.grid)), x_pos : (prev.x_pos-1)}))
             }
+        }else if(e.key === 'Shift'){
+            const ghost_y = getGhost_y(board, piece);
+            setPiece(prev => ({...prev, y_pos : ghost_y}))
         }
     }
 
@@ -122,7 +125,9 @@ export default function PlayGround({ level, increaseScoreBy }) {
                 {
                     finalBoard.map((row, rowIndex) => {
                         return (row.map((cell, cellIndex) => {
-                            if(cell === 0){
+                            if(cell === -1){
+                                return (<div key={`${rowIndex}-${cellIndex}`} className="w-8 h-8 border bg-gray-300"></div>)
+                            }else if(cell === 0){
                                 return (<div key={`${rowIndex}-${cellIndex}`} className="w-8 h-8 border bg-gray-500"></div>)
                             }else if (cell === 1) {
                                 return (<div key={`${rowIndex}-${cellIndex}`} className="w-8 h-8 border bg-amber-500"></div>)

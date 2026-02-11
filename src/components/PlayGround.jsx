@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react"
 import { initialBoard, initialPiece, L, I, S, O, T, Z, J, rotate90} from './block.js'
 import { checkCollision, checkGameOver, checkLineClear, generateNewPiece, lockPieceInBoard, generateFinalBoardArray } from "./gameLogic.js";
 
-export default function PlayGround({ tick, increaseScoreBy }) {
+export default function PlayGround({ level, increaseScoreBy }) {
 
     const [board, setBoard] = useState(initialBoard);
     // used useRef hook to get latest value of board in setInterval
@@ -18,52 +18,65 @@ export default function PlayGround({ tick, increaseScoreBy }) {
         pieceRef.current = piece;
     }, [piece])
 
+    const timeoutIdRef = useRef(null);
+    const tickRef = useRef(1200);
+    
+    useEffect(() => {
+        tickRef.current = Math.max(200, tickRef.current-200);
+        console.log(tickRef.current);
+    }, [level])
+
+
     // gravity and game loop
-    useEffect( ()=> {
-        const intervalId = setInterval(()=> {
+    const gameLoop = () => {
+        // here useRef values are used so setInterval's callback func always reads
+        // the latest values of board and piece
+        // because callback func does not re-bind state variables
+        // i.e. it will always use the value of board and piece given at the time of first call
+        // so reading state variables become stale
+        const curBoard = boardRef.current;
+        const curPiece = pieceRef.current;
+
+        //gravity
+        if(checkCollision(curBoard, curPiece.grid, curPiece.x_pos, (curPiece.y_pos + 1))){
+            setPiece(prev => ({...prev, y_pos : (prev.y_pos + 1)}));
+        }
+        else{
+            let updatedBoard = lockPieceInBoard(curBoard, curPiece);
+            const result =  checkLineClear(updatedBoard);
+            boardRef.current = result.newBoard;
+
+            //increasing score on clearing rows
+            if(result.removedRows == 1){
+                increaseScoreBy(100);
+            }else if(result.removedRows == 2){
+                increaseScoreBy(225);
+            }else if(result.removedRows == 3){
+                increaseScoreBy(350);
+            }else if(result.removedRows == 4){
+                increaseScoreBy(500);
+            }
             
-            // here useRef values are used so setInterval's callback func always reads
-            // the latest values of board and piece
-            // because callback func does not re-bind state variables
-            // i.e. it will always use the value of board and piece given at the time of first call
-            // so reading state variables become stale
-            const curBoard = boardRef.current;
-            const curPiece = pieceRef.current;
+            setBoard(boardRef.current);
 
-            //gravity
-            if(checkCollision(curBoard, curPiece.grid, curPiece.x_pos, (curPiece.y_pos + 1))){
-                setPiece(prev => ({...prev, y_pos : (prev.y_pos + 1)}));
+            pieceRef.current = generateNewPiece();
+            setPiece(pieceRef.current);
+
+            if(checkGameOver(boardRef.current, pieceRef.current)){
+                console.log("--------GAME OVER---------")
+                return;
             }
-            else{
-                let updatedBoard = lockPieceInBoard(curBoard, curPiece);
-                const result =  checkLineClear(updatedBoard);
-                boardRef.current = result.newBoard;
+        }
 
-                //increasing score on clearing rows
-                if(result.removedRows == 1){
-                    increaseScoreBy(100);
-                }else if(result.removedRows == 2){
-                    increaseScoreBy(225);
-                }else if(result.removedRows == 3){
-                    increaseScoreBy(350);
-                }else if(result.removedRows == 4){
-                    increaseScoreBy(500);
-                }
-                
-                setBoard(boardRef.current);
+        timeoutIdRef.current = setTimeout(gameLoop, tickRef.current); 
 
-                pieceRef.current = generateNewPiece();
-                setPiece(pieceRef.current);
+    }
 
-                if(checkGameOver(boardRef.current, pieceRef.current)){
-                    console.log("--------GAME OVER---------")
-                    clearInterval(intervalId);
-                }
-            }
-        }, tick);
-
-        return () => clearInterval(intervalId);
-    }, [tick])
+    //game loop caller
+    useEffect( ()=> {
+        gameLoop();
+        return () => clearInterval(timeoutIdRef.current);
+    }, []);
 
     // to handle user input on keyboard
     const handleKeyPress = (e) => {

@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import './App.css'
 import PlayGround from './components/PlayGround'
 
@@ -11,8 +11,8 @@ export default function App() {
 
     const increaseScoreBy = (addScore) => {
         setScore(prev => {
-
             const newScore = prev + addScore;
+
             if(Math.floor((newScore / 500)) !== Math.floor((prev / 500))){
                 setLevel(prev => {
                     console.log(prev+1)
@@ -24,15 +24,21 @@ export default function App() {
         })
     }
 
+    useEffect(()=>{
+        console.log(level);
+    }, [level])
+
     return (
         <div className='flex justify-evenly w-screen h-screen '>
             <div>
                 score = {score}
                 <br />
                 level = {level}
+                <br />
+                tick lenght = {tickRef.current}
             </div>
             <PlayGround
-                tick={tickRef.current}
+                level={level}
                 increaseScoreBy={increaseScoreBy} />
             <div>
 

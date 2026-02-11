@@ -1,22 +1,22 @@
 export const I = [[1, 1, 1, 1]]
 
-export const L = [[0, 0, 1],
-[1, 1, 1]]
+export const L = [[0, 0, 2],
+[2, 2, 2]]
 
-export const S = [[0, 1, 1],
-[1, 1, 0]]
+export const S = [[0, 3, 3],
+[3, 3, 0]]
 
-export const T = [[1, 1, 1],
-[0, 1, 0]]
+export const T = [[4, 4, 4],
+[0, 4, 0]]
 
-export const O = [[1, 1],
-[1, 1]]
+export const O = [[5, 5],
+[5, 5]]
 
-export const Z = [[1, 1, 0],
-[0, 1, 1]]
+export const Z = [[6, 6, 0],
+[0, 6, 6]]
 
-export const J = [[1, 0, 0],
-[1, 1, 1]]
+export const J = [[7, 0, 0],
+[7, 7, 7]]
 
 export const initialBoard =
     [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],

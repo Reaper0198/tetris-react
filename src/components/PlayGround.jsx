@@ -122,12 +122,22 @@ export default function PlayGround({ level, increaseScoreBy }) {
                 {
                     finalBoard.map((row, rowIndex) => {
                         return (row.map((cell, cellIndex) => {
-                            if (cell == 1) {
-                                return (<div key={`${rowIndex}-${cellIndex}`} className="w-8 h-8 border bg-gray-800"></div>)
-                            } else if (cell == 2) {
-                                return (<div key={`${rowIndex}-${cellIndex}`} className="w-8 h-8 border bg-purple-600"></div>)
-                            } else if (cell == 0) {
+                            if(cell === 0){
                                 return (<div key={`${rowIndex}-${cellIndex}`} className="w-8 h-8 border bg-gray-500"></div>)
+                            }else if (cell === 1) {
+                                return (<div key={`${rowIndex}-${cellIndex}`} className="w-8 h-8 border bg-amber-500"></div>)
+                            } else if (cell === 2) {
+                                return (<div key={`${rowIndex}-${cellIndex}`} className="w-8 h-8 border bg-purple-600"></div>)
+                            } else if (cell === 3) {
+                                return (<div key={`${rowIndex}-${cellIndex}`} className="w-8 h-8 border bg-yellow-300"></div>)
+                            }else if(cell === 4){
+                                return (<div key={`${rowIndex}-${cellIndex}`} className="w-8 h-8 border bg-blue-600"></div>)
+                            }else if (cell === 5) {
+                                return (<div key={`${rowIndex}-${cellIndex}`} className="w-8 h-8 border bg-emerald-600"></div>)
+                            } else if (cell === 6) {
+                                return (<div key={`${rowIndex}-${cellIndex}`} className="w-8 h-8 border bg-fuchsia-400"></div>)
+                            } else if (cell === 7) {
+                                return (<div key={`${rowIndex}-${cellIndex}`} className="w-8 h-8 border bg-red-700"></div>)
                             }
                         })
                         )

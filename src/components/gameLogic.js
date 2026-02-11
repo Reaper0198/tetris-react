@@ -25,8 +25,8 @@ export const checkCollision = (board, piece, loc_x, loc_y) => {
 
     for (let i = 0; i < y_length; i++) {
         for (let j = 0; j < x_length; j++) {
-            if (piece[i][j] == 1) {
-                if (board[loc_y + i][loc_x + j] === 1) {
+            if (piece[i][j] !== 0) {
+                if (board[loc_y + i][loc_x + j] !== 0) {
                     // console.log("y ", (loc_y + i))
                     // console.log("x ", (loc_x + j))
                     return false;
@@ -54,9 +54,9 @@ export const lockPieceInBoard = (board, piece) => {
             const piece_x = piece.x_pos + x;
             const piece_y = piece.y_pos + y;
 
-            if(cell == 1){
+            if(cell !== 0){
                 if(piece_x >= 0 && piece_x < 10 && piece_y >= 0 && piece_y < 20){
-                    finalBoard[piece_y][piece_x] = 1;
+                    finalBoard[piece_y][piece_x] = cell;
                 }
             }
         })
@@ -104,7 +104,15 @@ export const checkGameOver = (board, piece) => {
 //checks if board contain any fully filled rows and clears them
 export const checkLineClear = (board) => {
 
-    const remainingRows = board.filter(row => row.reduce((tot, x) => tot+x, 0) !== 10);
+    const remainingRows = board.filter(row => {
+        let zeroCnt = 0;
+
+        row.reduce(cell => {
+            cell === 0 ? zeroCnt++ : null
+        },zeroCnt)
+
+        return zeroCnt > 0
+    });
 
     const removedRows = 20 - remainingRows.length;
 
@@ -126,14 +134,14 @@ export const generateFinalBoardArray = (board, piece) => {
 
     piece.grid.forEach((row, y) => {
         row.forEach((cell, x) => {
-            if (cell === 1) {
+            if (cell !== 0) {
 
                 const piece_x = piece.x_pos + x;
                 const piece_y = piece.y_pos + y;
 
                 if (piece_x >= 0 && piece_x < board[0].length &&
                     piece_y >= 0 && piece_y < board.length) {
-                    finalBoard[piece_y][piece_x] = 2;
+                    finalBoard[piece_y][piece_x] = cell;
                 }
             }
         })

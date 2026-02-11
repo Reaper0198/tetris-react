@@ -10,18 +10,26 @@ export default function App() {
     const tickRef = useRef(1000);
 
     const increaseScoreBy = (addScore) => {
-        setScore(prev => prev+addScore);
+        setScore(prev => {
 
-        let lvl = Math.floor(score/500);
-        if(lvl === 1){
-            setLevel(prev => prev+1);
-        }else if(lvl === 2){
-            setLevel(prev => prev+1);
-        }else if(lvl === 3){
-            setLevel(prev => prev+1);
-        }else if(lvl === 4){
-            setLevel(prev => prev+1);
-        }
+            const newScore = prev + addScore;
+            let lvl = Math.floor(newScore / 500);
+            console.log(lvl, " ", newScore);
+            if (lvl === 1) {
+                setLevel(prev => prev + 1);
+                console.log("inside ", lvl);
+            } else if (lvl === 2) {
+                setLevel(prev => prev + 1);
+                console.log("inside ", lvl);
+            } else if (lvl === 3) {
+                setLevel(prev => prev + 1);
+                console.log("inside ", lvl);
+            } else if (lvl === 4) {
+                setLevel(prev => prev + 1);
+                console.log("inside ", lvl);
+            }
+            return newScore;
+        })
     }
 
     return (
@@ -31,9 +39,9 @@ export default function App() {
                 <br />
                 level = {level}
             </div>
-            <PlayGround 
+            <PlayGround
                 tick={tickRef.current}
-                increaseScoreBy={increaseScoreBy}/>
+                increaseScoreBy={increaseScoreBy} />
             <div>
 
             </div>

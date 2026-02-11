@@ -115,7 +115,8 @@ export const checkLineClear = (board) => {
     }
 
     const newBoard =  [...emptyRows, ...remainingRows];
-    return newBoard;
+
+    return {newBoard, removedRows}
 }
 
 // generate final board to render

@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react"
 import { initialBoard, initialPiece, L, I, S, O, T, Z, J, rotate90} from './block.js'
 import { checkCollision, checkGameOver, checkLineClear, generateNewPiece, lockPieceInBoard, generateFinalBoardArray } from "./gameLogic.js";
 
-export default function PlayGround() {
+export default function PlayGround({ tick, increaseScoreBy }) {
 
     const [board, setBoard] = useState(initialBoard);
     // used useRef hook to get latest value of board in setInterval
@@ -36,7 +36,20 @@ export default function PlayGround() {
             }
             else{
                 let updatedBoard = lockPieceInBoard(curBoard, curPiece);
-                boardRef.current = checkLineClear(updatedBoard);
+                const result =  checkLineClear(updatedBoard);
+                boardRef.current = result.newBoard;
+
+                //increasing score on clearing rows
+                if(result.removedRows == 1){
+                    increaseScoreBy(100);
+                }else if(result.removedRows == 2){
+                    increaseScoreBy(225);
+                }else if(result.removedRows == 3){
+                    increaseScoreBy(350);
+                }else if(result.removedRows == 4){
+                    increaseScoreBy(500);
+                }
+                
                 setBoard(boardRef.current);
 
                 pieceRef.current = generateNewPiece();
@@ -47,10 +60,10 @@ export default function PlayGround() {
                     clearInterval(intervalId);
                 }
             }
-        }, 1000);
+        }, tick);
 
         return () => clearInterval(intervalId);
-    }, [])
+    }, [tick])
 
     // to handle user input on keyboard
     const handleKeyPress = (e) => {

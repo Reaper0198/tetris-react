@@ -13,21 +13,13 @@ export default function App() {
         setScore(prev => {
 
             const newScore = prev + addScore;
-            let lvl = Math.floor(newScore / 500);
-            console.log(lvl, " ", newScore);
-            if (lvl === 1) {
-                setLevel(prev => prev + 1);
-                console.log("inside ", lvl);
-            } else if (lvl === 2) {
-                setLevel(prev => prev + 1);
-                console.log("inside ", lvl);
-            } else if (lvl === 3) {
-                setLevel(prev => prev + 1);
-                console.log("inside ", lvl);
-            } else if (lvl === 4) {
-                setLevel(prev => prev + 1);
-                console.log("inside ", lvl);
-            }
+            if(Math.floor((newScore / 500)) !== Math.floor((prev / 500))){
+                setLevel(prev => {
+                    console.log(prev+1)
+                    return (prev+1)
+                });
+            }    
+
             return newScore;
         })
     }

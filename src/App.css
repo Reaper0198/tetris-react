@@ -1,1 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=Anton&family=Doto:wght,ROND@724,15&family=Google+Sans:ital,opsz,wght@0,17..18,400..700;1,17..18,400..700&display=swap');
 @import "tailwindcss";
+
+@theme{
+    --font-doto : "Doto", sans-serif;
+}

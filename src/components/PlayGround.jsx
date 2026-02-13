@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState } from "react"
 import { initialBoard, initialPiece, L, I, S, O, T, Z, J, rotate90 } from './block.js'
-import { checkCollision, checkGameOver, checkLineClear, generateNewPiece, lockPieceInBoard, generateFinalBoardArray, getGhost_y } from "./gameLogic.js";
+import { checkCollision, checkGameOver, checkLineClear, generateNewPiece, lockPieceInBoard, generateFinalBoardArray, getGhost_y, saveScore } from "./gameLogic.js";
 
-export default function PlayGround({ level, increaseScoreBy, runGame, resetGame }) {
+export default function PlayGround({ level, increaseScoreBy, runGame, resetGame, score }) {
 
     const [board, setBoard] = useState(initialBoard);
     // used useRef hook to get latest value of board in game loop
@@ -78,6 +78,7 @@ export default function PlayGround({ level, increaseScoreBy, runGame, resetGame 
 
             if (checkGameOver(boardRef.current, pieceRef.current)) {
                 console.log("--------GAME OVER---------")
+                saveScore(score);
                 return;
             }
         }

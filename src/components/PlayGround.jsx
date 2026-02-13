@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react"
 import { initialBoard, initialPiece, L, I, S, O, T, Z, J, rotate90} from './block.js'
 import { checkCollision, checkGameOver, checkLineClear, generateNewPiece, lockPieceInBoard, generateFinalBoardArray, getGhost_y } from "./gameLogic.js";
 
-export default function PlayGround({ level, increaseScoreBy }) {
+export default function PlayGround({ level, increaseScoreBy, runGame }) {
 
     const [board, setBoard] = useState(initialBoard);
     // used useRef hook to get latest value of board in setInterval
@@ -23,7 +23,7 @@ export default function PlayGround({ level, increaseScoreBy }) {
     
     useEffect(() => {
         tickRef.current = Math.max(200, tickRef.current-200);
-        console.log(tickRef.current);
+        // console.log(tickRef.current);
     }, [level])
 
 
@@ -34,6 +34,9 @@ export default function PlayGround({ level, increaseScoreBy }) {
         // because callback func does not re-bind state variables
         // i.e. it will always use the value of board and piece given at the time of first call
         // so reading state variables become stale
+
+
+
         const curBoard = boardRef.current;
         const curPiece = pieceRef.current;
 
@@ -74,13 +77,15 @@ export default function PlayGround({ level, increaseScoreBy }) {
 
     //game loop caller
     useEffect( ()=> {
-        gameLoop();
-        return () => clearInterval(timeoutIdRef.current);
-    }, []);
+        if(runGame){
+            gameLoop();
+        }
+        return () => clearTimeout(timeoutIdRef.current);
+    }, [runGame]);
 
     // to handle user input on keyboard
     const handleKeyPress = (e) => {
-        console.log(e.key);
+        // console.log(e.key);
         if (e.key === 'd') {
             // move right
             if (checkCollision(board, piece.grid, (piece.x_pos + 1), (piece.y_pos))) {

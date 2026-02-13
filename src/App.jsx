@@ -33,10 +33,6 @@ export default function App() {
         setRunGame(prev => !prev);
     }
 
-    useEffect(() => {
-        console.log(level);
-    }, [level])
-
     return (
         <div className='flex justify-evenly w-screen h-screen '>
             <div className='flex flex-col flex-1 py-40 items-center'> 
@@ -57,6 +53,7 @@ export default function App() {
             </div>
             <div>
                 <PlayGround
+                    runGame={runGame}
                     level={level}
                     increaseScoreBy={increaseScoreBy} />
             </div>

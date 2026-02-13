@@ -11,8 +11,7 @@ export default function App() {
     const [level, setLevel] = useState(1);
     const [score, setScore] = useState(0);
     const [runGame, setRunGame] = useState(false);
-
-    const tickRef = useRef(1000);
+    const [resetGame, setResetGame] = useState(false);
 
     const increaseScoreBy = (addScore) => {
         setScore(prev => {
@@ -33,6 +32,12 @@ export default function App() {
         setRunGame(prev => !prev);
     }
 
+    const handleResetGame = () => {
+        setResetGame(prev => !prev);
+        setScore(0);
+        setLevel(1);
+    }
+
     return (
         <div className='flex justify-evenly w-screen h-screen '>
             <div className='flex flex-col flex-1 py-40 items-center'> 
@@ -44,7 +49,8 @@ export default function App() {
                         {runGame ? <IoPauseOutline  size={50}/> :
                         <IoPlayOutline size={50}/> }
                     </div>
-                    <div className='border-4 py-3 px-7 rounded-lg'>
+                    <div className='border-4 py-3 px-7 rounded-lg'
+                        onClick={handleResetGame}>
                         <RiResetRightLine size={50}/>
                     </div>
                 </div>
@@ -53,6 +59,7 @@ export default function App() {
             </div>
             <div>
                 <PlayGround
+                    resetGame={resetGame}
                     runGame={runGame}
                     level={level}
                     increaseScoreBy={increaseScoreBy} />
@@ -61,8 +68,6 @@ export default function App() {
                 score = {score}
                 <br />
                 level = {level}
-                <br />
-                tick lenght = {tickRef.current}
             </div>
         </div>
     )

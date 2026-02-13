@@ -40,18 +40,18 @@ export default function App() {
 
     return (
         <div className='flex justify-evenly w-screen h-screen '>
-            <div className='flex flex-col flex-1 py-40 items-center'> 
+            <div className='flex flex-col flex-1 py-30 items-center'>
 
-                <p className='font-doto text-8xl font-black'>TETRIS</p>
+                <p className='font-jersey text-9xl font-black'>TETRIS</p>
                 <div className='flex gap-2'>
                     <div className='border-4 py-3 px-7 rounded-lg'
                         onClick={handleRunGame}>
-                        {runGame ? <IoPauseOutline  size={50}/> :
-                        <IoPlayOutline size={50}/> }
+                        {runGame ? <IoPauseOutline size={50} /> :
+                            <IoPlayOutline size={50} />}
                     </div>
                     <div className='border-4 py-3 px-7 rounded-lg'
                         onClick={handleResetGame}>
-                        <RiResetRightLine size={50}/>
+                        <RiResetRightLine size={50} />
                     </div>
                 </div>
 
@@ -64,10 +64,22 @@ export default function App() {
                     level={level}
                     increaseScoreBy={increaseScoreBy} />
             </div>
-            <div className='flex flex-col items-center flex-1'>
-                score = {score}
-                <br />
-                level = {level}
+            <div className='flex flex-col items-center flex-1 py-8 px-2 gap-4'>
+                <div className='text-center'>
+                    <p className='font-jersey text-6xl font-'>SCORE</p>
+                    <div className='border-3 p-2 rounded-lg text-center text-2xl mx-4'>{score}</div>
+                </div>
+                <div className='text-center'>
+                    <p className='font-jersey text-6xl font-'>LEVEL</p>
+                    <div className='border-3 p-2 rounded-lg text-center text-2xl mx-4'>{level}</div>
+                </div>
+                <div className='h-full w-full border-2 rounded-lg p-2 mx-10'>
+                    <div className='flex justify-between px-4 py-1 text-xl'>
+                        <p>Date</p>
+                        <p>Name</p>
+                        <p>Score</p>
+                    </div>
+                </div>
             </div>
         </div>
     )

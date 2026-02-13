@@ -5,14 +5,14 @@ import { checkCollision, checkGameOver, checkLineClear, generateNewPiece, lockPi
 export default function PlayGround({ level, increaseScoreBy, runGame, resetGame }) {
 
     const [board, setBoard] = useState(initialBoard);
-    // used useRef hook to get latest value of board in setInterval
+    // used useRef hook to get latest value of board in game loop
     const boardRef = useRef(board);
     useEffect(() => {
         board.current = board;
     }, [board])
 
     const [piece, setPiece] = useState(initialPiece);
-    // used useRef hook to get latest value of piece in setInterval
+    // used useRef hook to get latest value of piece in game loop
     const pieceRef = useRef(piece);
     useEffect(() => {
         pieceRef.current = piece;
@@ -34,6 +34,7 @@ export default function PlayGround({ level, increaseScoreBy, runGame, resetGame 
         tickRef.current = 1200;
         boardRef.current = initialBoard;
         pieceRef.current = initialPiece;
+        playGroundRef.current.focus();
     }, [resetGame])
 
 
@@ -89,9 +90,6 @@ export default function PlayGround({ level, increaseScoreBy, runGame, resetGame 
     useEffect(() => {
         if(runGame && playGroundRef.current){
             playGroundRef.current.focus();
-        }
-
-        if (runGame) {
             gameLoop();
         }
         return () => clearTimeout(timeoutIdRef.current);

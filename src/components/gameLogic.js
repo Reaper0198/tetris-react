@@ -174,7 +174,7 @@ const compare = (a, b) =>{
 export const saveScore = (score) => {
     // console.log("score ", score);
     const newEntry = {
-        date : new Date(),
+        date : new Date().toLocaleDateString('en-GB'),
         name : 'Tim',
         score
     }

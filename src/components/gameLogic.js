@@ -1,5 +1,3 @@
-import { L, I, S, Z, T, O, J} from "./block.js"
-
 // this function checks if a piece at give coordinate is valid or not
 // all coordiates are in 4th quadrant
 export const checkCollision = (board, piece, loc_x, loc_y) => {
@@ -64,34 +62,6 @@ export const lockPieceInBoard = (board, piece) => {
         })
     })
     return finalBoard;
-}
-
-// generates new piece after prev is fixed into board
-export const generateNewPiece = () => {
-    const num = Math.floor(Math.random() * 7);
-    // console.log(num)
-    let newPiece = {
-        x_pos : 4,
-        y_pos : 0
-    }
-
-    if(num == 0){ // L, I, S, O, T, Z, J
-        newPiece = {...newPiece, grid : I};
-    }else if(num == 1){
-        newPiece = {...newPiece, grid : L};
-    }else if(num == 2){
-        newPiece = {...newPiece, grid : J};
-    }else if(num == 3){
-        newPiece = {...newPiece, grid : O};
-    }else if(num == 4){
-        newPiece = {...newPiece, grid : S};
-    }else if(num == 5){
-        newPiece = {...newPiece, grid : T};
-    }else if(num == 6){
-        newPiece = {...newPiece, grid : Z};
-    }
-    // console.log("newPiece", piece);
-    return newPiece;
 }
 
 // checks game over if the fixed pieces reached top row

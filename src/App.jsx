@@ -34,7 +34,10 @@ export default function App() {
         setResetGame(prev => !prev);
         setScore(0);
         setLevel(1);
-        handleRunGame()
+        if(runGame){
+            handleRunGame();
+        }
+        console.log('runGame', runGame)
     }
 
     return (

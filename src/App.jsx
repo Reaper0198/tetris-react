@@ -37,7 +37,6 @@ export default function App() {
         if(runGame){
             handleRunGame();
         }
-        console.log('runGame', runGame)
     }
 
     return (

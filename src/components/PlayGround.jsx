@@ -22,11 +22,16 @@ export default function PlayGround({ level, increaseScoreBy, runGame, resetGame,
     const tickRef = useRef(1200);
     // this ref will hold the reference to actual playground element in the DOM
     const playGroundRef = useRef(null);
+    const scoreRef = useRef(score);
 
     useEffect(() => {
         tickRef.current = Math.max(200, tickRef.current - 200);
         // console.log(tickRef.current);
     }, [level])
+
+    useEffect(()=> {
+        scoreRef.current = score;
+    }, [score])
 
     useEffect(() => {
         setBoard(initialBoard);
@@ -78,7 +83,7 @@ export default function PlayGround({ level, increaseScoreBy, runGame, resetGame,
 
             if (checkGameOver(boardRef.current, pieceRef.current)) {
                 console.log("--------GAME OVER---------")
-                saveScore(score);
+                saveScore(scoreRef.current);
                 return;
             }
         }

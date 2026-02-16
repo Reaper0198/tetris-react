@@ -40,11 +40,13 @@ export default function App() {
     }
 
     return (
-        <div className='flex justify-evenly w-screen h-screen flex-1'>
+        <div className='flex max-sm:flex-col md:flex w-screen h-screen'>
             <HomeComponent 
                 runGame={runGame}
                 handleResetGame={handleResetGame}
                 handleRunGame={handleRunGame}/>
+            <div className='flex flex-2/3 content-center'>
+
             <PlayGround
                 score={score}
                 level={level}
@@ -54,6 +56,7 @@ export default function App() {
             <Stats
                 level={level}
                 score={score} />
+                </div>
         </div>
     )
 }

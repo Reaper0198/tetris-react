@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react"
 import { initialBoard, rotate90, generateNewPiece } from './block.js'
-import { checkCollision, checkGameOver, checkLineClear, lockPieceInBoard, generateFinalBoardArray, getGhost_y, saveScore } from "./gameLogic.js";
+import { checkCollision, checkGameOver, checkLineClear, lockPieceInBoard, generateFinalBoardArray, getGhost_y} from "./gameLogic.js";
 
 export default function PlayGround({ level, increaseScoreBy, runGame, resetGame, score }) {
 
@@ -83,8 +83,6 @@ export default function PlayGround({ level, increaseScoreBy, runGame, resetGame,
 
             if (checkGameOver(boardRef.current, pieceRef.current)) {
                 console.log("--------GAME OVER---------")
-                saveScore(scoreRef.current);
-                console.log('runGame', runGame)
                 return;
             }
         }
@@ -144,8 +142,10 @@ export default function PlayGround({ level, increaseScoreBy, runGame, resetGame,
     const finalBoard = generateFinalBoardArray(board, piece);
 
     return (
-        <>
-            <div className="min-w-90 h-180 border grid grid-cols-10 m-2 p-2 outline-none"
+        <>  <div className="flex-1 flex justify-center items-center ">
+
+
+            <div className="w-70 md:w-80 h-130 md:h-160 border grid grid-cols-10 m-2 p-1 outline-none"
                 onKeyDown={handleKeyPress} 
                 tabIndex={1}
                 ref = {playGroundRef}
@@ -154,23 +154,23 @@ export default function PlayGround({ level, increaseScoreBy, runGame, resetGame,
                     finalBoard.map((row, rowIndex) => {
                         return (row.map((cell, cellIndex) => {
                             if (cell === -1) {
-                                return (<div key={`${rowIndex}-${cellIndex}`} className="w-8 h-8 border bg-gray-300"></div>)
+                                return (<div key={`${rowIndex}-${cellIndex}`} className="w-6 md:w-7 h-6 md:h-7 border bg-gray-200"></div>)
                             } else if (cell === 0) {
-                                return (<div key={`${rowIndex}-${cellIndex}`} className="w-8 h-8 border bg-gray-500"></div>)
+                                return (<div key={`${rowIndex}-${cellIndex}`} className="w-6 md:w-7 h-6 md:h-7 border  bg-gray-400"></div>) //bg-[#64113f]
                             } else if (cell === 1) {
-                                return (<div key={`${rowIndex}-${cellIndex}`} className="w-8 h-8 border bg-amber-500"></div>)
+                                return (<div key={`${rowIndex}-${cellIndex}`} className="w-6 md:w-7 h-6 md:h-7 border bg-[#f27059]"></div>)
                             } else if (cell === 2) {
-                                return (<div key={`${rowIndex}-${cellIndex}`} className="w-8 h-8 border bg-purple-600"></div>)
+                                return (<div key={`${rowIndex}-${cellIndex}`} className="w-6 md:w-7 h-6 md:h-7 border bg-[#731dd8]"></div>)
                             } else if (cell === 3) {
-                                return (<div key={`${rowIndex}-${cellIndex}`} className="w-8 h-8 border bg-yellow-300"></div>)
+                                return (<div key={`${rowIndex}-${cellIndex}`} className="w-6 md:w-7 h-6 md:h-7 border bg-[#379634]"></div>)
                             } else if (cell === 4) {
-                                return (<div key={`${rowIndex}-${cellIndex}`} className="w-8 h-8 border bg-blue-600"></div>)
+                                return (<div key={`${rowIndex}-${cellIndex}`} className="w-6 md:w-7 h-6 md:h-7 border bg-[#64113f]"></div>)
                             } else if (cell === 5) {
-                                return (<div key={`${rowIndex}-${cellIndex}`} className="w-8 h-8 border bg-emerald-600"></div>)
+                                return (<div key={`${rowIndex}-${cellIndex}`} className="w-6 md:w-7 h-6 md:h-7 border bg-[#ff82a9]"></div>)
                             } else if (cell === 6) {
-                                return (<div key={`${rowIndex}-${cellIndex}`} className="w-8 h-8 border bg-fuchsia-400"></div>)
+                                return (<div key={`${rowIndex}-${cellIndex}`} className="w-6 md:w-7 h-6 md:h-7 border bg-[#f1d302]"></div>)
                             } else if (cell === 7) {
-                                return (<div key={`${rowIndex}-${cellIndex}`} className="w-8 h-8 border bg-red-700"></div>)
+                                return (<div key={`${rowIndex}-${cellIndex}`} className="w-6 md:w-7 h-6 md:h-7 border bg-[#226ce0]"></div>)
                             }
                         })
                         )
@@ -178,6 +178,7 @@ export default function PlayGround({ level, increaseScoreBy, runGame, resetGame,
                 }
 
             </div>
+                    </div>
         </>
     )
 }

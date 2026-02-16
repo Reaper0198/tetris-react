@@ -133,38 +133,4 @@ export const getGhost_y = (board, piece) => {
 
 }
 
-const compare = (a, b) =>{
-    if(a.score < b.score){
-        return 1;
-    }else{
-        return -1;
-    }
-}
 
-export const saveScore = (score) => {
-    // console.log("score ", score);
-    const newEntry = {
-        date : new Date().toLocaleDateString('en-GB'),
-        name : 'Tim',
-        score
-    }
-    // console.log("newEntry ", newEntry);
-    if(localStorage.getItem('lowestHighScore')){
-        let lowestHighScore = JSON.parse(localStorage.getItem('lowestHighScore'));
-        let recordArr = JSON.parse(localStorage.getItem('highScores'));
-        recordArr.push(newEntry);
-        recordArr.sort(compare);
-        if(recordArr.length > 10){
-            recordArr.splice(10, 1);
-        }
-        // console.log("recordArr ", recordArr);
-        localStorage.setItem("highScores", JSON.stringify(recordArr));
-        lowestHighScore = recordArr.at(-1).score;
-        localStorage.setItem('lowestHighScore', JSON.stringify(lowestHighScore));
-        // console.log('lowestHighScore ', lowestHighScore );
-        
-    }else{  
-        localStorage.setItem("lowestHighScore", JSON.stringify(score));
-        localStorage.setItem("highScores", JSON.stringify([newEntry]))
-    }
-}

@@ -8,8 +8,8 @@ export default function HomeComponent({ handleResetGame, handleRunGame, runGame 
             <div className='flex flex-col content-center md:pt-30 md:pb-10 items-center flex-1/3'>
                 <div>
 
-                <p className='font-jersey text-7xl md:text-9xl font-black'>TETRIS</p>
-                <div className='flex gap-2 p-1'>
+                <p className='font-jersey text-8xl md:text-9xl font-black'>TETRIS</p>
+                <div className='flex gap-2 p-1 justify-center'>
                     <div className='border-4 border-b-8 border-r-8 md:py-3 md:px-7 rounded-lg active:border-b-4 active:border-r-4 active:translate-x-2 active:translate-y-2'
                         onClick={handleRunGame}>
                         {runGame ? <IoPauseOutline size={50} /> :

@@ -145,7 +145,7 @@ export default function PlayGround({ level, increaseScoreBy, runGame, resetGame,
         <>  <div className="flex-1 flex justify-center items-center ">
 
 
-            <div className="w-70 md:w-80 h-130 md:h-160 border grid grid-cols-10 m-2 p-1 outline-none"
+            <div className="w-65 md:w-80 h-128 md:h-160 border grid grid-cols-10 m-2 p-1 outline-none"
                 onKeyDown={handleKeyPress} 
                 tabIndex={1}
                 ref = {playGroundRef}

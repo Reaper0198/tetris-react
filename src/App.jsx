@@ -3,6 +3,7 @@ import './App.css'
 import PlayGround from './components/PlayGround';
 import Stats from './components/Stats';
 import HomeComponent from './components/HomeComponent';
+import Controls from './components/Controls';
 
 export default function App() {
 
@@ -34,29 +35,33 @@ export default function App() {
         setResetGame(prev => !prev);
         setScore(0);
         setLevel(1);
-        if(runGame){
+        if (runGame) {
             handleRunGame();
         }
     }
 
     return (
-        <div className='flex max-sm:flex-col md:flex w-screen h-screen'>
-            <HomeComponent 
+        <div className='flex max-sm:flex-col md:flex w-screen md:h-screen'>
+            <HomeComponent
                 runGame={runGame}
                 handleResetGame={handleResetGame}
-                handleRunGame={handleRunGame}/>
-            <div className='flex flex-2/3 content-center'>
+                handleRunGame={handleRunGame} />
 
-            <PlayGround
-                score={score}
-                level={level}
-                resetGame={resetGame}
-                runGame={runGame}
-                increaseScoreBy={increaseScoreBy} />
-            <Stats
-                level={level}
-                score={score} />
-                </div>
+            <div className='flex flex-2/3 content-center'>
+                <PlayGround
+                    controlRef={controlRef}
+                    handleControl={handleControl}
+                    score={score}
+                    level={level}
+                    resetGame={resetGame}
+                    runGame={runGame}
+                    increaseScoreBy={increaseScoreBy} />
+                <Stats
+                    level={level}
+                    score={score} />
+            </div>
+            <Controls 
+                handleControl={handleControl}/>
         </div>
     )
 }

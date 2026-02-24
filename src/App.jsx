@@ -3,7 +3,6 @@ import './App.css'
 import PlayGround from './components/PlayGround';
 import Stats from './components/Stats';
 import HomeComponent from './components/HomeComponent';
-import Controls from './components/Controls';
 
 export default function App() {
 
@@ -41,7 +40,7 @@ export default function App() {
     }
 
     return (
-        <div className='flex max-sm:flex-col md:flex w-screen md:h-screen'>
+        <div className='flex w-screen h-screen md:h-screen bg-[#FFF4EA]'>
             <HomeComponent
                 runGame={runGame}
                 handleResetGame={handleResetGame}
@@ -49,8 +48,7 @@ export default function App() {
 
             <div className='flex flex-2/3 content-center'>
                 <PlayGround
-                    controlRef={controlRef}
-                    handleControl={handleControl}
+                    // handleControl={handle
                     score={score}
                     level={level}
                     resetGame={resetGame}
@@ -60,8 +58,8 @@ export default function App() {
                     level={level}
                     score={score} />
             </div>
-            <Controls 
-                handleControl={handleControl}/>
+            {/* <Controls 
+                handleControl={handleControl}/> */}
         </div>
     )
 }

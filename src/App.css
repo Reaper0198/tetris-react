@@ -3,4 +3,6 @@
 
 @theme{
     --font-jersey : "Jersey 10", sans-serif;
+    --board-height : calc(20 * min(calc(100dvh/21), calc(33dvw/11)));
+    --block-height : min(calc(100dvh/21), calc(33dvw/11)) ;
 }

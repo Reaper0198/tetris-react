@@ -18,6 +18,8 @@ export default function PlayGround({ level, increaseScoreBy, runGame, resetGame,
         pieceRef.current = piece;
     }, [piece])
 
+    const [gameOver, setGameOver] = useState(false);
+
     const timeoutIdRef = useRef(null);
     const tickRef = useRef(1200);
     // this ref will hold the reference to actual playground element in the DOM
@@ -83,6 +85,7 @@ export default function PlayGround({ level, increaseScoreBy, runGame, resetGame,
 
             if (checkGameOver(boardRef.current, pieceRef.current)) {
                 console.log("--------GAME OVER---------")
+                setGameOver(prev => !prev);
                 return;
             }
         }
@@ -142,10 +145,19 @@ export default function PlayGround({ level, increaseScoreBy, runGame, resetGame,
     const finalBoard = generateFinalBoardArray(board, piece);
 
     return (
-        <>  <div className="flex-1 flex justify-center items-center ">
+        <>  <div className="flex-1 flex justify-center items-center">
+
+            {/* {gameOver ? 
+                <div>
+                    <div className="border-5 ">
+                        <p>GAME OVER!</p>
+                        <p>Total Score : {score}</p>
+                        <div></div>
+                    </div>
+                </div> : null} */}
 
 
-            <div className="w-65 md:w-80 h-128 md:h-160 border grid grid-cols-10 m-2 p-1 outline-none"
+            <div className="border grid grid-cols-10 m-2 outline-none"
                 onKeyDown={handleKeyPress} 
                 tabIndex={1}
                 ref = {playGroundRef}
@@ -154,23 +166,23 @@ export default function PlayGround({ level, increaseScoreBy, runGame, resetGame,
                     finalBoard.map((row, rowIndex) => {
                         return (row.map((cell, cellIndex) => {
                             if (cell === -1) {
-                                return (<div key={`${rowIndex}-${cellIndex}`} className="w-6 md:w-7 h-6 md:h-7 border bg-gray-200"></div>)
+                                return (<div key={`${rowIndex}-${cellIndex}`} className=" h-(--block-height) aspect-square border bg-gray-200"></div>)
                             } else if (cell === 0) {
-                                return (<div key={`${rowIndex}-${cellIndex}`} className="w-6 md:w-7 h-6 md:h-7 border  bg-gray-400"></div>) //bg-[#64113f]
+                                return (<div key={`${rowIndex}-${cellIndex}`} className=" h-(--block-height) aspect-square border  bg-gray-400"></div>) //bg-[#64113f]
                             } else if (cell === 1) {
-                                return (<div key={`${rowIndex}-${cellIndex}`} className="w-6 md:w-7 h-6 md:h-7 border bg-[#f27059]"></div>)
+                                return (<div key={`${rowIndex}-${cellIndex}`} className=" h-(--block-height) aspect-square border bg-[#f27059]"></div>)
                             } else if (cell === 2) {
-                                return (<div key={`${rowIndex}-${cellIndex}`} className="w-6 md:w-7 h-6 md:h-7 border bg-[#731dd8]"></div>)
+                                return (<div key={`${rowIndex}-${cellIndex}`} className=" h-(--block-height) aspect-square border bg-[#731dd8]"></div>)
                             } else if (cell === 3) {
-                                return (<div key={`${rowIndex}-${cellIndex}`} className="w-6 md:w-7 h-6 md:h-7 border bg-[#379634]"></div>)
+                                return (<div key={`${rowIndex}-${cellIndex}`} className=" h-(--block-height) aspect-square border bg-[#379634]"></div>)
                             } else if (cell === 4) {
-                                return (<div key={`${rowIndex}-${cellIndex}`} className="w-6 md:w-7 h-6 md:h-7 border bg-[#64113f]"></div>)
+                                return (<div key={`${rowIndex}-${cellIndex}`} className=" h-(--block-height) aspect-square border bg-[#64113f]"></div>)
                             } else if (cell === 5) {
-                                return (<div key={`${rowIndex}-${cellIndex}`} className="w-6 md:w-7 h-6 md:h-7 border bg-[#ff82a9]"></div>)
+                                return (<div key={`${rowIndex}-${cellIndex}`} className=" h-(--block-height) aspect-square border bg-[#ff82a9]"></div>)
                             } else if (cell === 6) {
-                                return (<div key={`${rowIndex}-${cellIndex}`} className="w-6 md:w-7 h-6 md:h-7 border bg-[#f1d302]"></div>)
+                                return (<div key={`${rowIndex}-${cellIndex}`} className=" h-(--block-height) aspect-square border bg-[#f1d302]"></div>)
                             } else if (cell === 7) {
-                                return (<div key={`${rowIndex}-${cellIndex}`} className="w-6 md:w-7 h-6 md:h-7 border bg-[#226ce0]"></div>)
+                                return (<div key={`${rowIndex}-${cellIndex}`} className=" h-(--block-height) aspect-square border bg-[#226ce0]"></div>)
                             }
                         })
                         )
